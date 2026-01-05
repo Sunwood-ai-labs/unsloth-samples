@@ -32,8 +32,15 @@ ENV/
 models/
 checkpoints/
 output/
+outputs/
+outputs_*/
+finetuned_model/
+finetuned_*/
 *.pth
 *.ckpt
+*.h5
+*.pkl
+*.msgpack
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -52,9 +59,21 @@ output/
 .DS_Store
 Thumbs.db
 
-# Unsloth cache
+# Unsloth & HuggingFace cache
 huggingface_tokenizers_cache/
 unsloth_compiled_cache/
+.cache/
+wandb/
+runs/
 
 # UV
 uv.lock
+
+# Dataset cache
+*.arrow
+*.cache
+
+# Temporary files
+tmp/
+temp/
+*.tmp
