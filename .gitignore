@@ -51,3 +51,10 @@ output/
 # OS
 .DS_Store
 Thumbs.db
+
+# Unsloth cache
+huggingface_tokenizers_cache/
+unsloth_compiled_cache/
+
+# UV
+uv.lock

@@ -11,13 +11,12 @@ if ! command -v uv &> /dev/null; then
 fi
 
 echo "📚 依存関係をインストールしています..."
-uv sync
+uv pip install -r requirements.txt
 
 echo "✅ セットアップが完了しました！"
 echo ""
 echo "使い方:"
-echo "  1. 仮想環境をアクティベート: source .venv/bin/activate"
-echo "  2. サンプルスクリプトを実行: python finetune_example.py"
+echo "  python finetune_example.py"
 echo ""
 echo "または:"
-echo "  uv run python finetune_example.py"
+echo "  python finetune_llama4.py"
