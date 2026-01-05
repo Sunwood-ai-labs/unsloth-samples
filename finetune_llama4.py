@@ -116,6 +116,7 @@ trainer = SFTTrainer(
         output_dir="outputs_llama4",
         save_strategy="steps",
         save_steps=100,
+        report_to="none",  # wandbを無効化
     ),
 )
 

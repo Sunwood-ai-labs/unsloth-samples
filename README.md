@@ -134,6 +134,41 @@ load_in_4bit = True  # 4bit量子化を有効に
 per_device_train_batch_size = 1  # バッチサイズを小さく
 ```
 
+## 動作確認結果
+
+### テスト環境
+- **GPU**: Tesla T4 (14.74 GB VRAM)
+- **CUDA**: 12.6
+- **Unsloth**: 2026.1.1
+- **PyTorch**: 2.9.0+cu126
+- **Transformers**: 4.57.3
+
+### ファインチューニング動作確認（10ステップ）
+
+```bash
+python finetune_quick_test.py
+```
+
+**結果:**
+- モデル: TinyLlama (4bit量子化)
+- データセット: Alpaca (100件)
+- トレーニングパラメータ: 12.6M / 1.1B (1.13%)
+- トレーニング時間: 約58秒
+- 損失: 1.859 (初期: 1.910)
+- GPUメモリ使用: 最大 1.00 GB
+
+### セットアップテスト
+
+```bash
+python test_setup.py
+```
+
+**結果:**
+- ✅ 全パッケージのインポート成功
+- ✅ CUDA環境認識
+- ✅ モデルロード成功
+- ✅ 推論テスト成功
+
 ## 参考リンク
 
 - [Unsloth公式ドキュメント](https://unsloth.ai/docs)
