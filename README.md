@@ -111,17 +111,23 @@ max_steps = 100  # お試しなら少なめ、本格的には1000以上
 
 ```
 .
-├── README.md                 # このファイル
-├── GPU_MODELS_GUIDE.md       # Tesla T4で動くモデル一覧
-├── pyproject.toml            # プロジェクト設定（uv用）
-├── requirements.txt          # 依存関係リスト
-├── setup.sh                  # 自動セットアップスクリプト
-├── test_setup.py             # 環境セットアップテスト
-├── finetune_quick_test.py    # 動作確認用（TinyLlama、10ステップ）
-├── finetune_7b_test.py       # 中規模モデルテスト（Qwen 2.5 7B、20ステップ）✨
-├── finetune_example.py       # 基本サンプル（TinyLlama、100ステップ）
-├── finetune_llama4.py        # 最新モデルサンプル（Llama 4、200ステップ）
-└── .gitignore                # Git除外設定
+├── .claude/agents/
+│   └── workflow-automation-agent.md  # 🤖 環境構築エージェント
+│
+├── README.md                         # このファイル
+├── DEVELOPMENT_WORKFLOW.md           # 📖 完全開発ワークフロー
+├── GPU_MODELS_GUIDE.md               # 🎯 Tesla T4で動くモデル一覧
+│
+├── pyproject.toml                    # プロジェクト設定（uv用）
+├── requirements.txt                  # 依存関係リスト
+├── setup.sh                          # 自動セットアップスクリプト
+├── .gitignore                        # Git除外設定
+│
+├── test_setup.py                     # 環境セットアップテスト
+├── finetune_quick_test.py            # 動作確認用（TinyLlama、10ステップ）
+├── finetune_7b_test.py               # 中規模モデルテスト（Qwen 2.5 7B、20ステップ）✨
+├── finetune_example.py               # 基本サンプル（TinyLlama、100ステップ）
+└── finetune_llama4.py                # 最新モデルサンプル（Llama 4、200ステップ）
 ```
 
 ## トラブルシューティング
@@ -196,11 +202,68 @@ python test_setup.py
 - ✅ モデルロード成功
 - ✅ 推論テスト成功
 
+## 🤖 自動化エージェント
+
+このリポジトリには、同じ環境を自動構築できる **Claude Code エージェント** が含まれています！
+
+### `llm-finetuning-env-builder`
+
+**機能:**
+- 🔍 GPU環境の自動確認とモデル選定
+- 📦 GitHubリポジトリの作成と初期化
+- ⚙️ 依存関係のセットアップ（トラブルシューティング対応済み）
+- 📝 テストコードとサンプルスクリプトの生成
+- 📊 動作確認とベンチマーク
+- 📚 ドキュメント自動生成（実測値付き）
+- 🔄 Git管理の自動化
+
+**使い方:**
+```bash
+# Claude Codeで実行
+/agent llm-finetuning-env-builder
+```
+
+**詳細:**
+- エージェント定義: `.claude/agents/workflow-automation-agent.md`
+- ワークフロー詳細: [DEVELOPMENT_WORKFLOW.md](./DEVELOPMENT_WORKFLOW.md)
+
+このエージェントは、このリポジトリ構築で得た知見を完全に再現できます：
+- ✅ 8フェーズの体系的な構築プロセス
+- ✅ GPU最適化されたモデル選定
+- ✅ 実績ベースのトラブルシューティング
+- ✅ 品質チェックリスト付き
+
+**実績:**
+- TinyLlama環境: 約10分
+- Qwen 2.5 7B環境: 約15分
+- 完全な環境構築: 約90分
+
+## 📖 開発者向けドキュメント
+
+### DEVELOPMENT_WORKFLOW.md
+
+このリポジトリを構築した完全なワークフローを記録しています：
+
+- **Phase 1-8**: 要件定義から完成まで
+- **トラブルシューティング**: 実際に遭遇した問題と解決策
+- **ベストプラクティス**: 学んだ知見の集約
+- **再現手順**: コマンドレベルの詳細手順
+
+**主なトピック:**
+- wandbエラー対応（`report_to="none"`）
+- UV build エラー対応（requirements.txt推奨）
+- GPU別モデル選定マトリクス
+- 段階的なモデルサイズアップ戦略
+- 実測値ベースのドキュメント作成
+
+👉 詳細は [DEVELOPMENT_WORKFLOW.md](./DEVELOPMENT_WORKFLOW.md) を参照
+
 ## 参考リンク
 
 - [Unsloth公式ドキュメント](https://unsloth.ai/docs)
 - [Unsloth GitHub](https://github.com/unslothai/unsloth)
 - [uv公式サイト](https://github.com/astral-sh/uv)
+- [このリポジトリの開発ワークフロー](./DEVELOPMENT_WORKFLOW.md)
 
 ## ライセンス
 
