@@ -111,14 +111,17 @@ max_steps = 100  # お試しなら少なめ、本格的には1000以上
 
 ```
 .
-├── README.md              # このファイル
-├── GPU_MODELS_GUIDE.md    # Tesla T4で動くモデル一覧
-├── pyproject.toml         # プロジェクト設定（uv用）
-├── requirements.txt       # 依存関係リスト
-├── setup.sh              # 自動セットアップスクリプト
-├── finetune_example.py   # 基本サンプル（TinyLlama）
-├── finetune_llama4.py    # 最新モデルサンプル（Llama 4）
-└── .gitignore            # Git除外設定
+├── README.md                 # このファイル
+├── GPU_MODELS_GUIDE.md       # Tesla T4で動くモデル一覧
+├── pyproject.toml            # プロジェクト設定（uv用）
+├── requirements.txt          # 依存関係リスト
+├── setup.sh                  # 自動セットアップスクリプト
+├── test_setup.py             # 環境セットアップテスト
+├── finetune_quick_test.py    # 動作確認用（TinyLlama、10ステップ）
+├── finetune_7b_test.py       # 中規模モデルテスト（Qwen 2.5 7B、20ステップ）✨
+├── finetune_example.py       # 基本サンプル（TinyLlama、100ステップ）
+├── finetune_llama4.py        # 最新モデルサンプル（Llama 4、200ステップ）
+└── .gitignore                # Git除外設定
 ```
 
 ## トラブルシューティング
@@ -143,7 +146,9 @@ per_device_train_batch_size = 1  # バッチサイズを小さく
 - **PyTorch**: 2.9.0+cu126
 - **Transformers**: 4.57.3
 
-### ファインチューニング動作確認（10ステップ）
+### ファインチューニング動作確認
+
+#### 軽量モデル: TinyLlama (10ステップ)
 
 ```bash
 python finetune_quick_test.py
@@ -155,7 +160,29 @@ python finetune_quick_test.py
 - トレーニングパラメータ: 12.6M / 1.1B (1.13%)
 - トレーニング時間: 約58秒
 - 損失: 1.859 (初期: 1.910)
-- GPUメモリ使用: 最大 1.00 GB
+- GPUメモリ使用: 最大 1.00 GB (6.8%)
+
+#### 中規模モデル: Qwen 2.5 7B (20ステップ) 🔥
+
+```bash
+python finetune_7b_test.py
+```
+
+**結果:**
+- モデル: Qwen 2.5 7B (4bit量子化)
+- データセット: Alpaca (500件)
+- トレーニングパラメータ: 40.4M / 7.66B (0.53%)
+- トレーニング時間: 約138秒
+- 損失: 1.014 (初期: 1.218)
+- GPUメモリ使用: 最大 6.40 GB (43.4%)
+
+**推論品質の比較:**
+
+| 質問 | TinyLlama | Qwen 2.5 7B |
+|------|-----------|-------------|
+| 日本の首都は？ | 繰り返しが発生 | ✅ **東京です** |
+| Hello World | 不完全な回答 | ✅ **print("Hello World")** |
+| 機械学習とは？ | - | ✅ **詳細な説明** |
 
 ### セットアップテスト
 
